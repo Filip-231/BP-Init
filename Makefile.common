@@ -39,8 +39,8 @@ text::
 .PHONY: update-makefiles
 update-makefiles::
 	@echo "Updating inherited Makefiles"
-	cd ../ && git clone git@github.com:Filip-231/Init.git && \
-	mv Init/Makefile* Init2/ && rm -rf Init/
+	cd ../ && git clone git@github.com:Filip-231/Init.git tmp && \
+	mv tmp/Makefile* Init2/ && rm -rf Init/
 
 
 .PHONY: init
