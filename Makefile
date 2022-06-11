@@ -28,7 +28,7 @@ test::
 	@echo "Updating Makefiles"
 	@echo $(shell basename $${PWD})
 
-.PHONY: test2
+.PHONY: test3
 test::
 	@echo "Updating Makefiles"
 	@echo $(shell basename $${PWD})
