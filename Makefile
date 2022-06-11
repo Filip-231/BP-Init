@@ -28,6 +28,10 @@ test::
 	@echo "Updating Makefiles"
 	@echo $(shell basename $${PWD})
 
+.PHONY: test2
+test::
+	@echo "Updating Makefiles"
+	@echo $(shell basename $${PWD})
 
 #.PHONY: init
 #init: pre-install venv

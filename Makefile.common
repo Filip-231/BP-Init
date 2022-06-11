@@ -29,7 +29,7 @@ test::
 
 .PHONY: init-update
 init-update: pre-install update venv
-	. $(_VENV_ACTIVATE) && \
+	. $(_VENV_ACTIVATE) &&  cd Dir\ structure/ && \
 		cruft $(if $(CHECK),check --checkout=$(BRANCH),update --allow-untracked-files --checkout=$(BRANCH))
 
 .PHONY: update
