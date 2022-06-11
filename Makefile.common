@@ -32,8 +32,8 @@ init-update: pre-install update venv
 	. $(_VENV_ACTIVATE) &&  cd Dir\ structure/ && \
 		cruft $(if $(CHECK),check --checkout=$(BRANCH),update --allow-untracked-files --checkout=$(BRANCH))
 
-.PHONY: update
-update::
+.PHONY: text
+text::
 	@echo "Updating inherited Makefiles"
 
 .PHONY: update-makefiles
@@ -41,6 +41,7 @@ update-makefiles::
 	@echo "Updating inherited Makefiles"
 	cd ../ && git clone git@github.com:Filip-231/Init.git && \
 	mv Init/Makefile* Init2/ && rm -rf Init/
+
 
 .PHONY: init
 init: pre-install venv
