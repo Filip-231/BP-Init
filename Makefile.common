@@ -39,8 +39,11 @@ test-abcd:
 	@echo $(shell basename $${PWD})
 	@echo $(DOCKER_BUILDKIT)
 
-.PHONY: init-update
-init-update: pre-install venv
+.PHONY: update
+update: update-makefiles update-project
+
+.PHONY: update-project
+update-project: pre-install venv
 	. $(_VENV_ACTIVATE) &&  cd  $(_DIR_STRUCTURE) && \
 		cruft $(if $(CHECK),check --checkout=$(BRANCH),update --allow-untracked-files --checkout=$(BRANCH))
 
