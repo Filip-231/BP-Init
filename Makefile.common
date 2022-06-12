@@ -22,6 +22,12 @@ _CURRENT_DIR_NAME = $(shell basename $${PWD})
 #	git archive --remote="$(BOILERPLATE_REPO_PATH)" "$(BRANCH)" "templates/$(LANGUAGE)/Makefile.base" | \
 #		tar --extract --overwrite --strip-components=2
 
+
+.PHONY: commit
+commit: venv ## (prompt for interactive conventional commit)
+	. $(_VENV_ACTIVATE) && \
+		cz commit
+
 .PHONY: docker-dev
 docker-dev: ## (launch a dev environment inside of a docker container)
 	export DOCKER_BUILDKIT=1
