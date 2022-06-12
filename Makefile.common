@@ -32,7 +32,7 @@ commit: venv ## (prompt for interactive conventional commit)
 docker-dev: ## (launch a dev environment inside of a docker container)
 	export DOCKER_BUILDKIT=1
 
-.PHONY: test
+.PHONY: test-abcd
 test:
 	@echo "Updating Makefiles"
 	@echo $(shell basename $${PWD})
