@@ -15,3 +15,14 @@ test-unit:: venv ## BROWSE= CODECOV_TOKEN=$CODECOV_TOKEN (run unit tests)
 	echo "Opening Allure report"; \
 	allure open public/allure-report; \
 	fi
+
+
+.PHONY: install
+install:: pre-install
+	echo "Installing requirements, extra requirements & setup.py in editable mode..."; \
+		. "$(_VENV_ACTIVATE)" && \
+			pip-sync $$EXTRA_INDEXES$(shell IFS="," read -a array -r <<< $(EXTRAS) && \
+				for extra in $${array[@]}; do \
+					echo -n " extras/$${extra}-requirements.txt"; \
+				done) requirements.txt && \
+				pip install --editable=.;
