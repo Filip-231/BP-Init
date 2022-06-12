@@ -40,7 +40,7 @@ test-abcd:
 
 .PHONY: init-update
 init-update: pre-install venv
-	. $(_VENV_ACTIVATE) &&  cd -project/ && \
+	. $(_VENV_ACTIVATE) &&  cd Dir\ structure/ && \
 		cruft $(if $(CHECK),check --checkout=$(BRANCH),update --allow-untracked-files --checkout=$(BRANCH))
 
 .PHONY: text
