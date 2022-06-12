@@ -43,15 +43,17 @@ commit: venv ## (prompt for interactive conventional commit)
 docker-dev: ## (launch a dev environment inside of a docker container)
 	export DOCKER_BUILDKIT=1
 
-.PHONY: git-commit
-git-commit:
+
+.PHONY: update
+update: git-commit-all update-makefiles update-project
+
+
+.PHONY: git-commit-all
+git-commit-all:
 	git add .
 	git commit -m "auto-commit"
 	git push
 	git status
-
-.PHONY: update
-update: update-makefiles update-project
 
 
 .PHONY: update-project
