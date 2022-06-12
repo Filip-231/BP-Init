@@ -22,6 +22,16 @@ _DIR_STRUCTURE = "Dir structure/"
 #		tar --extract --overwrite --strip-components=1
 #	git archive --remote="$(BOILERPLATE_REPO_PATH)" "$(BRANCH)" "templates/$(LANGUAGE)/Makefile.base" | \
 #		tar --extract --overwrite --strip-components=2
+#
+#.PHONY: test-abcd
+#test-abcd:
+#	@echo "Updating Makefiles"
+#	@echo $(shell basename $${PWD})
+#	@echo $(DOCKER_BUILDKIT)
+#
+#.PHONY: text
+#text:
+#	@echo "Updating inherited Makefiles"
 
 
 .PHONY: commit
@@ -33,23 +43,22 @@ commit: venv ## (prompt for interactive conventional commit)
 docker-dev: ## (launch a dev environment inside of a docker container)
 	export DOCKER_BUILDKIT=1
 
-.PHONY: test-abcd
-test-abcd:
-	@echo "Updating Makefiles"
-	@echo $(shell basename $${PWD})
-	@echo $(DOCKER_BUILDKIT)
+.PHONY: git-commit
+git-commit:
+	git add .
+	git commit -m "auto-commit"
+	git push
+	git status
 
 .PHONY: update
 update: update-makefiles update-project
+
 
 .PHONY: update-project
 update-project: pre-install venv
 	. $(_VENV_ACTIVATE) &&  cd  $(_DIR_STRUCTURE) && \
 		cruft $(if $(CHECK),check --checkout=$(BRANCH),update --allow-untracked-files --checkout=$(BRANCH))
 
-.PHONY: text
-text:
-	@echo "Updating inherited Makefiles"
 
 .PHONY: update-makefiles
 update-makefiles:
