@@ -14,6 +14,7 @@ BOILERPLATE_REPO_SSH = git@$(DOMAIN):$(BOILERPLATE_REPO_PATH)
 _VENV=.venv
 _VENV_ACTIVATE = $(_VENV)/bin/activate
 _CURRENT_DIR_NAME = $(shell basename $${PWD})
+_DIR_STRUCTURE = "Dir\ structure/"
 #.PHONY: update
 #update::
 #	@echo "Updating Makefiles"
@@ -40,7 +41,7 @@ test-abcd:
 
 .PHONY: init-update
 init-update: pre-install venv
-	. $(_VENV_ACTIVATE) &&  cd Dir\ structure/ && \
+	. $(_VENV_ACTIVATE) &&  cd  $(_DIR_STRUCTURE) && \
 		cruft $(if $(CHECK),check --checkout=$(BRANCH),update --allow-untracked-files --checkout=$(BRANCH))
 
 .PHONY: text
