@@ -17,3 +17,9 @@ test:: venv
 install:: pre-install
 	echo "Installing requirements."; \
 		. "$(_VENV_ACTIVATE)" && pip install -r requirements.txt
+
+
+.PHONY: lint
+lint:: venv ## (run code linting tools)
+	. "$(_VENV_ACTIVATE)" && \
+		prospector
