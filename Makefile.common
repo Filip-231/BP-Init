@@ -45,7 +45,7 @@ docker-dev: ## (launch a dev environment inside of a docker container)
 
 
 .PHONY: update
-update: update-makefiles update-project
+update: update-project update-makefiles
 
 
 .PHONY: git-commit-all
