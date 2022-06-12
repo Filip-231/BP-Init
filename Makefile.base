@@ -2,6 +2,10 @@ SHELL := /bin/bash
 
 -include Makefile.common
 
+.PHONY: format
+format:: venv
+	. "$(_VENV_ACTIVATE)" && \
+		isort . && black .
 
 .PHONY: test
 test:: venv
