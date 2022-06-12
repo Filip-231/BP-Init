@@ -6,15 +6,7 @@ SHELL := /bin/bash
 .PHONY: test-unit
 test-unit:: venv ## BROWSE= CODECOV_TOKEN=$CODECOV_TOKEN (run unit tests)
 	$(info Executing pytest, coverage, codecov upload & allure report generation [silenced due to secrets]...)
-	@. "$(_VENV_ACTIVATE)" && \
-		python -m pytest -p no:allure_pytest_bdd --alluredir=public/allure-results --cov \
-			--cov-report=xml:public/coverage.xml $(if $(CODECOV_TOKEN),--codecov --codecov-token="$(CODECOV_TOKEN)" )\
-			$(if $(DEBUG),--pdb )tests/unit/ && \
-				allure generate --clean --report-dir public/allure-report public/allure-results
-	if [ "$(BROWSE)" ]; then \
-	echo "Opening Allure report"; \
-	allure open public/allure-report; \
-	fi
+	@. "$(_VENV_ACTIVATE)" && python -m pytest -p tests/unit/
 
 
 .PHONY: install
