@@ -1,5 +1,8 @@
+default: help
 SHELL := /bin/bash
 
+-include .env
+export
 
 BRANCH ?= master
 LANGUAGE ?= python
@@ -19,13 +22,15 @@ _CURRENT_DIR_NAME = $(shell basename $${PWD})
 #	git archive --remote="$(BOILERPLATE_REPO_PATH)" "$(BRANCH)" "templates/$(LANGUAGE)/Makefile.base" | \
 #		tar --extract --overwrite --strip-components=2
 
-
+.PHONY: docker-dev
+docker-dev: ## (launch a dev environment inside of a docker container)
+	export DOCKER_BUILDKIT=1
 
 .PHONY: test
-test::
+test:
 	@echo "Updating Makefiles"
 	@echo $(shell basename $${PWD})
-
+	@echo $(DOCKER_BUILDKIT)
 
 .PHONY: init-update
 init-update: pre-install update venv
@@ -33,11 +38,11 @@ init-update: pre-install update venv
 		cruft $(if $(CHECK),check --checkout=$(BRANCH),update --allow-untracked-files --checkout=$(BRANCH))
 
 .PHONY: text
-text::
+text:
 	@echo "Updating inherited Makefiles"
 
 .PHONY: update-makefiles
-update-makefiles::
+update-makefiles:
 	@echo "Updating inherited Makefiles"
 	cd ../ && git clone git@github.com:Filip-231/Init.git tmp && \
 	mv tmp/Makefile* Init/ && rm -rf tmp/

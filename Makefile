@@ -15,12 +15,12 @@ _VENV_ACTIVATE = $(_VENV)/bin/activate
 _CURRENT_DIR_NAME = $(shell basename $${PWD})
 
 
-.PHONY: test
-test::
-	@echo "Updating Makefiles"
+.PHONY: test123
+test123:
+	@echo "123Updating Makefiles"
 	@echo $(shell basename $${PWD})
 
 .PHONY: test3
-test::
-	@echo "Updating Makefiles"
+test3:
+	@echo "3Updating Makefiles"
 	@echo $(shell basename $${PWD})
