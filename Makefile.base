@@ -4,7 +4,7 @@ SHELL := /bin/bash
 
 
 .PHONY: test
-test-unit:: venv
+test:: venv
 	$(info Executing pytest, coverage, codecov upload & allure report generation [silenced due to secrets]...)
 	@. "$(_VENV_ACTIVATE)" && python -m pytest -p tests/unit/
 
