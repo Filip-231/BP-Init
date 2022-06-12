@@ -33,7 +33,7 @@ docker-dev: ## (launch a dev environment inside of a docker container)
 	export DOCKER_BUILDKIT=1
 
 .PHONY: test-abcd
-test:
+test-abcd:
 	@echo "Updating Makefiles"
 	@echo $(shell basename $${PWD})
 	@echo $(DOCKER_BUILDKIT)
