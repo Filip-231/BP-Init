@@ -3,8 +3,8 @@ SHELL := /bin/bash
 -include Makefile.common
 
 
-.PHONY: test-unit
-test-unit:: venv ## BROWSE= CODECOV_TOKEN=$CODECOV_TOKEN (run unit tests)
+.PHONY: test
+test-unit:: venv
 	$(info Executing pytest, coverage, codecov upload & allure report generation [silenced due to secrets]...)
 	@. "$(_VENV_ACTIVATE)" && python -m pytest -p tests/unit/
 
