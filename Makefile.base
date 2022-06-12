@@ -20,6 +20,6 @@ install:: pre-install
 
 
 .PHONY: lint
-lint:: venv ## (run code linting tools)
+lint:: venv
 	. "$(_VENV_ACTIVATE)" && \
 		prospector
