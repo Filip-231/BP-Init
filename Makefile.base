@@ -6,7 +6,7 @@ SHELL := /bin/bash
 .PHONY: test
 test:: venv
 	$(info Executing pytest, coverage, codecov upload & allure report generation [silenced due to secrets]...)
-	@. "$(_VENV_ACTIVATE)" && python -m pytest -v tests/unit/
+	@. "$(_VENV_ACTIVATE)" && python -m pytest -v $(_DIR_STRUCTURE)/tests/
 
 
 .PHONY: install
