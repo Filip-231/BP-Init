@@ -1,4 +1,4 @@
-name: Makefile CI
+name: Bump Version
 
 on:
   push:
@@ -19,3 +19,6 @@ jobs:
 
       - name: Run check
         run: make bump
+
+      - name: Bump Version
+        run: make git-commit-all
