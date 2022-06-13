@@ -7,6 +7,7 @@ export
 BRANCH ?= master
 LANGUAGE ?= python
 DOMAIN ?= github.com
+PART ?= PATCH #MINOR MAJOR
 
 BOILERPLATE_REPO_PATH = git@github.com:Filip-231/Boilerplate.git
 BOILERPLATE_REPO_SSH = git@$(DOMAIN):$(BOILERPLATE_REPO_PATH)
@@ -33,6 +34,10 @@ _DIR_STRUCTURE = "Dir structure/"
 #text:
 #	@echo "Updating inherited Makefiles"
 
+.PHONY: bump
+bump: venv ## PART= (bump the release version - deduced automatically from commit messages since the last tag unless PART is explicitly provided)
+	. $(_VENV_ACTIVATE) && \
+		cz bump --files-only --yes $(if $(PART),--increment=$(PART))
 
 .PHONY: commit
 commit: venv ## (prompt for interactive conventional commit)
