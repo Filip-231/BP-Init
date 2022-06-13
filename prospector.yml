@@ -36,6 +36,3 @@ pylint:
   - too-many-locals
   load-plugins:
   - pylint.extensions.docparams
-
-vulture:
-  run: false
