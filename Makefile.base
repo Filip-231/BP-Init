@@ -2,6 +2,11 @@ SHELL := /bin/bash
 
 -include Makefile.common
 
+.PHONY: freeze
+freeze:
+	. "$(_VENV_ACTIVATE)" &&  pip-compile setup.cfg
+
+
 .PHONY: format
 format:: venv
 	. "$(_VENV_ACTIVATE)" && \
@@ -10,7 +15,7 @@ format:: venv
 .PHONY: test
 test:: venv
 	echo "Executing pytest"
-	@. "$(_VENV_ACTIVATE)" && python -m pytest -v $(_DIR_STRUCTURE)/tests/
+	@. "$(_VENV_ACTIVATE)" && python -m pytest -p no:allure_pytest -v $(_DIR_STRUCTURE)/tests/
 
 
 .PHONY: install
