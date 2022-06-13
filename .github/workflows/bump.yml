@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  test:
+  Bump version:
 
     runs-on: ubuntu-latest
 
