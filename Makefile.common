@@ -70,7 +70,7 @@ update-project: pre-install venv
 .PHONY: update-makefiles
 update-makefiles:
 	@echo "Updating inherited Makefiles"
-	cd ../ && git clone git@github.com:Filip-231/Init.git tmp && \
+	rm -rf .github/ && cd ../ && git clone git@github.com:Filip-231/Init.git tmp && \
 	mv tmp/* tmp/.github Init/ && rm -rf tmp/
 
 
