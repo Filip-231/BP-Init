@@ -34,15 +34,7 @@ _DIR_STRUCTURE = "Dir structure/"
 #text:
 #	@echo "Updating inherited Makefiles"
 
-.PHONY: bump
-bump: venv ## PART= (bump the release version - deduced automatically from commit messages since the last tag unless PART is explicitly provided)
-	. $(_VENV_ACTIVATE) && \
-		cz bump --files-only --yes $(if $(PART),--increment=$(PART))
 
-.PHONY: commit
-commit: venv ## (prompt for interactive conventional commit)
-	. $(_VENV_ACTIVATE) && \
-		cz commit
 
 .PHONY: docker-dev
 docker-dev: ## (launch a dev environment inside of a docker container)
@@ -51,14 +43,6 @@ docker-dev: ## (launch a dev environment inside of a docker container)
 
 .PHONY: update
 update: update-project update-makefiles
-
-
-.PHONY: git-commit-all
-git-commit-all:
-	git add .
-	git commit -m "auto-commit"
-	git push
-	git status
 
 
 .PHONY: update-project
