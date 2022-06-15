@@ -26,8 +26,11 @@ test123:
 .PHONY: git
 git:
 	@echo "Configuring git."
+	touch Makefile.specific
+	echo _PROJECT=$(_PROJECT) > Makefile.specific
+	echo _USER=$(_USER) > Makefile.specific
 	git remote rm origin
-	git remote add origin git@github.com:Filip-231/$(_PROJECT).git
+	git remote add origin git@github.com:$(_USER)/$(_PROJECT).git
 	git push origin master
 
 
