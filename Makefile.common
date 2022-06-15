@@ -30,9 +30,9 @@ update-project: pre-install venv
 
 .PHONY: update-makefiles
 update-makefiles:
-	@echo "Updating inherited Makefiles"
+	@echo "Updating setup files."
 	rm -rf .github/ && cd ../ && git clone git@github.com:Filip-231/Init.git tmp && \
-	mv tmp/* tmp/.github $(_PROJECT) && rm -rf tmp/
+	cd tmp && mv $(ls | grep -v pyproject.toml | grep -v VERSION) .github ../$(_PROJECT) && cd ../ && rm -rf tmp/
 
 
 .PHONY: init
