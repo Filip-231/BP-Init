@@ -11,7 +11,7 @@ _PROJECT?=
 
 .PHONY: test123
 test123:
-	@echo "test1234"
+	@echo "test12345"
 	@echo git@github.com:Filip-231/$(_PROJECT).git
 #	@echo $(shell basename $${PWD})
 
