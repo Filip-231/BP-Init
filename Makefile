@@ -15,6 +15,13 @@ test123:
 	@echo git@github.com:Filip-231/$(_PROJECT).git
 #	@echo $(shell basename $${PWD})
 
+.PHONY: test123
+test123:
+	@echo "test12345"
+	@echo git@github.com:Filip-231/$(_PROJECT).git
+#	@echo $(shell basename $${PWD})
+
+
 .PHONY: git
 git:
 	@echo "Configuring git."
