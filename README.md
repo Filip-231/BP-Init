@@ -2,9 +2,7 @@
 This repository is made to initialize new projects with all design patterns included. All You need to do is:
 ```
 git clone git@github.com:Filip-231/Init.git && cd Init
-git remote rm origin
-git remote add origin git@github.com:Filip-231/1.git
-git push origin master
+make git _PROJECT=abc-test _USER=Filip-231
 make test
 make init
 ```
