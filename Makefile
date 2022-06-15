@@ -13,18 +13,22 @@ BOILERPLATE_REPO_SSH = git@$(DOMAIN):$(BOILERPLATE_REPO_PATH)
 _VENV=.venv
 _VENV_ACTIVATE = $(_VENV)/bin/activate
 _CURRENT_DIR_NAME = $(shell basename $${PWD})
-
+_PROJECT?=
 
 .PHONY: test123
 test123:
-	@echo "123Updating Makefiles"
-	@echo $(shell basename $${PWD})
+	@echo "test123"
+	@echo git@github.com:Filip-231/$(_PROJECT).git
+#	@echo $(shell basename $${PWD})
+
 
 
 .PHONY: git
 git:
 	@echo "Configuring git."
-	@echo $(shell basename $${PWD})
+	git remote rm origin
+	git remote add origin git@github.com:Filip-231/$(_PROJECT).git
+	git push origin master
 
 
 .PHONY: git-commit-all
