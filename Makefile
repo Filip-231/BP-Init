@@ -6,6 +6,7 @@ SHELL := /bin/bash
 BRANCH ?= master
 LANGUAGE ?= python
 DOMAIN ?= github.com
+PART ?= PATCH #MINOR MAJOR
 
 BOILERPLATE_REPO_PATH = git@github.com:Filip-231/Boilerplate.git
 BOILERPLATE_REPO_SSH = git@$(DOMAIN):$(BOILERPLATE_REPO_PATH)
