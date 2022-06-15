@@ -16,24 +16,6 @@ _VENV=.venv
 _VENV_ACTIVATE = $(_VENV)/bin/activate
 _CURRENT_DIR_NAME = $(shell basename $${PWD})
 _DIR_STRUCTURE = "Dir structure/"
-#.PHONY: update
-#update::
-#	@echo "Updating Makefiles"
-#	git archive --remote="$(BOILERPLATE_REPO_PATH)" "$(BRANCH)" cicd/Makefile.cicd templates/Makefile.common | \
-#		tar --extract --overwrite --strip-components=1
-#	git archive --remote="$(BOILERPLATE_REPO_PATH)" "$(BRANCH)" "templates/$(LANGUAGE)/Makefile.base" | \
-#		tar --extract --overwrite --strip-components=2
-#
-#.PHONY: test-abcd
-#test-abcd:
-#	@echo "Updating Makefiles"
-#	@echo $(shell basename $${PWD})
-#	@echo $(DOCKER_BUILDKIT)
-#
-#.PHONY: text
-#text:
-#	@echo "Updating inherited Makefiles"
-
 
 
 .PHONY: docker-dev
@@ -55,7 +37,7 @@ update-project: pre-install venv
 update-makefiles:
 	@echo "Updating inherited Makefiles"
 	rm -rf .github/ && cd ../ && git clone git@github.com:Filip-231/Init.git tmp && \
-	mv tmp/* tmp/.github Init/ && rm -rf tmp/
+	mv tmp/* tmp/.github $(_PROJECT) && rm -rf tmp/
 
 
 .PHONY: init
