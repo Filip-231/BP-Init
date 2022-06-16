@@ -14,22 +14,22 @@ _DIR_STRUCTURE = "Dir structure"
 
 
 .PHONY: docker-dev
-docker-dev: ## (launch a dev environment inside of a docker container)
+docker-dev: ## launch a dev environment inside of a docker container
 	export DOCKER_BUILDKIT=1
 
 
 .PHONY: update
-update: update-project update-makefiles
+update: update-project update-makefiles ## update cruft project and configuration files
 
 
 .PHONY: update-project
-update-project: pre-install venv
+update-project: pre-install venv ## update cruft project and install pre-requirements
 	. $(_VENV_ACTIVATE) &&  cd  $(_DIR_STRUCTURE) && \
 		cruft $(if $(CHECK),check --checkout=$(BRANCH),update --allow-untracked-files --checkout=$(BRANCH))
 
 
 .PHONY: update-makefiles
-update-makefiles:
+update-makefiles: ## update configuration files
 	@echo "Updating setup files."
 	rm -rf .github/ && cd ../ && git clone git@github.com:Filip-231/Init.git tmp && \
 	cd tmp && rm VERSION && rm pyproject.toml && mv * .github .pre-commit-config.yml \
@@ -37,7 +37,7 @@ update-makefiles:
 
 
 .PHONY: init
-init: pre-install venv
+init: pre-install venv ## create cruft project and install pre-requirements
 	$(info Initialising directory from template...)
 	. $(_VENV_ACTIVATE) && \
 		cruft create --directory=templates/django --overwrite-if-exists --checkout=$(BRANCH) \
@@ -45,7 +45,7 @@ init: pre-install venv
 
 
 .PHONY: pre-install
-pre-install: venv
+pre-install: venv ## install pre-requirements
 	. $(_VENV_ACTIVATE) && \
 		pip install $(if $(UPGRADE),--upgrade )commitizen cruft pre-commit pip-tools && \
 			if [ -n "$(SKIP_PRE_COMMIT)" ]; then \
@@ -59,7 +59,7 @@ pre-install: venv
 			fi
 
 .PHONY: venv
-venv: $(_VENV_ACTIVATE)
+venv: $(_VENV_ACTIVATE) ## install virtual environment
 
 
 $(_VENV_ACTIVATE):
