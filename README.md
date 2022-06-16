@@ -5,6 +5,10 @@ git clone git@github.com:Filip-231/Init.git abc-test && cd abc-test && make git 
 ```
 Fill **_PROJECT** with a name of you new project, and **_USER** with the name of your Github user.
 
+To have access to all make commands You need to create venv:
+
+```make install```
+
 And You are good to go! Isn't this genius?
 
 To configure pytest in Pycharm add: ```-p no:allure_pytest_bdd``` to additional parameters.
@@ -19,4 +23,3 @@ To configure pytest in Pycharm add: ```-p no:allure_pytest_bdd``` to additional 
 - Can be used for pulling when repo is not empty:
 
 ``git pull origin master --allow-unrelated-histories``
-
