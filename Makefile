@@ -6,7 +6,7 @@ SHELL := /bin/bash
 BRANCH ?= master
 LANGUAGE ?= python
 DOMAIN ?= github.com
-PART ?= PATCH #MINOR MAJOR
+PART ?= #PATCH #MINOR MAJOR
 _PROJECT?=
 
 .PHONY: test123
