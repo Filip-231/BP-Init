@@ -6,7 +6,9 @@ SHELL := /bin/bash
 freeze:
 	. "$(_VENV_ACTIVATE)" &&  pip-compile setup.cfg
 
-
+.PHONY: freeze
+freeze:
+	. "$(_VENV_ACTIVATE)" &&  pip-compile setup.cfg
 .PHONY: format
 format:: venv
 	. "$(_VENV_ACTIVATE)" && \
