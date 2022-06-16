@@ -15,7 +15,7 @@ test:: venv
 
 
 .PHONY: install
-install:: freeze pre-install
+install:: pre-install freeze
 	echo "Installing requirements."; \
 		. "$(_VENV_ACTIVATE)" && pip install -r requirements.txt
 

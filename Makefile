@@ -26,17 +26,19 @@ git:
 	git push --set-upstream origin master
 
 
-.PHONY: git-commit-all
-git-commit-all:
+.PHONY: bump
+bump: venv ## PART= (bump the release version - deduced automatically from commit messages since the last tag unless PART is explicitly provided)
+	. $(_VENV_ACTIVATE) && \
+		cz bump --files-only --yes $(if $(PART),--increment=$(PART))
+
+
+.PHONY: all
+all:
 	git add .
 	git commit -m "auto-commit" --no-verify
 	git push
 	git status
 
-.PHONY: bump
-bump: venv ## PART= (bump the release version - deduced automatically from commit messages since the last tag unless PART is explicitly provided)
-	. $(_VENV_ACTIVATE) && \
-		cz bump --files-only --yes $(if $(PART),--increment=$(PART))
 
 .PHONY: commit
 commit: venv ## (prompt for interactive conventional commit)
