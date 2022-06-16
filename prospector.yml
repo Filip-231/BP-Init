@@ -5,7 +5,7 @@ ignore-paths:
 max-line-length: 120
 member-warnings: false
 output-format: grouped
-strictness: veryhigh
+strictness: low
 test-warnings: true
 
 bandit:
@@ -34,5 +34,6 @@ pylint:
   - too-many-arguments
   - too-many-instance-attributes
   - too-many-locals
+  - import-outside-toplevel
   load-plugins:
   - pylint.extensions.docparams
