@@ -7,20 +7,14 @@ BRANCH ?= master
 LANGUAGE ?= python
 DOMAIN ?= github.com
 PART ?= #PATCH #MINOR MAJOR
-_PROJECT?=
+_PROJECT ?=
+_USER ?= #will be prepopulated in Makefile.specific
 
 .PHONY: test123
 test123:
 	@echo "test12345"
 	@echo git@github.com:Filip-231/$(_PROJECT).git
 #	@echo $(shell basename $${PWD})
-
-.PHONY: test123
-test123:
-	@echo "test12345"
-	@echo git@github.com:Filip-231/$(_PROJECT).git
-#	@echo $(shell basename $${PWD})
-
 
 .PHONY: git
 git:

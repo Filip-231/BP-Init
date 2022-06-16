@@ -47,7 +47,7 @@ init: pre-install venv
 .PHONY: pre-install
 pre-install: venv
 	. $(_VENV_ACTIVATE) && \
-		pip install $(if $(UPGRADE),--upgrade )commitizen cruft pre-commit && \
+		pip install $(if $(UPGRADE),--upgrade )commitizen cruft pre-commit pip-tools && \
 			if [ -n "$(SKIP_PRE_COMMIT)" ]; then \
 			echo "SKIP_PRE_COMMIT detected; ignoring pre-commit setup..."; \
 			else \

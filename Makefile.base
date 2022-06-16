@@ -2,10 +2,6 @@ SHELL := /bin/bash
 
 -include Makefile.common
 
-.PHONY: freeze
-freeze:
-	. "$(_VENV_ACTIVATE)" &&  pip-compile setup.cfg
-
 
 .PHONY: format
 format:: venv
@@ -19,10 +15,13 @@ test:: venv
 
 
 .PHONY: install
-install:: pre-install
+install:: freeze pre-install
 	echo "Installing requirements."; \
 		. "$(_VENV_ACTIVATE)" && pip install -r requirements.txt
 
+.PHONY: freeze
+freeze:
+	. "$(_VENV_ACTIVATE)" &&  pip-compile setup.cfg
 
 .PHONY: lint
 lint:: venv
