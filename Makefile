@@ -35,7 +35,7 @@ git:
 .PHONY: git-commit-all
 git-commit-all:
 	git add .
-	git commit -m "auto-commit"
+	git commit -m "auto-commit" --no-verify
 	git push
 	git status
 
