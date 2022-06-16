@@ -32,7 +32,8 @@ update-project: pre-install venv
 update-makefiles:
 	@echo "Updating setup files."
 	rm -rf .github/ && cd ../ && git clone git@github.com:Filip-231/Init.git tmp && \
-	cd tmp && rm VERSION && rm pyproject.toml && mv * .github ../$(_PROJECT) && cd ../ && rm -rf tmp/
+	cd tmp && rm VERSION && rm pyproject.toml && mv * .github .pre-commit-config.yml \
+	../$(_PROJECT) && cd ../ && rm -rf tmp/
 
 
 .PHONY: init
