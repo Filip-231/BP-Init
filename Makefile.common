@@ -32,7 +32,7 @@ update-project: pre-install venv ## update cruft project and install pre-require
 update-makefiles: ## update configuration files
 	@echo "Updating setup files."
 	rm -rf .github/ docs/ && cd ../ && git clone git@github.com:Filip-231/Init.git tmp && \
-	cd tmp && rm VERSION && rm pyproject.toml && mv * .github .pre-commit-config.yml docs/ \
+	cd tmp && rm VERSION && rm pyproject.toml && mv * .github .pre-commit-config.yml \
 	../$(_PROJECT) && cd ../ && rm -rf tmp/
 
 
