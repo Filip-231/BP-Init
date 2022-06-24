@@ -10,7 +10,7 @@ BOILERPLATE_REPO_SSH = git@$(DOMAIN):$(BOILERPLATE_REPO_PATH)
 _VENV=.venv
 _VENV_ACTIVATE = $(_VENV)/bin/activate
 _CURRENT_DIR_NAME = $(shell basename $${PWD})
-_DIR_STRUCTURE = "Dir structure"
+_DIR_STRUCTURE = "structure"
 
 
 .PHONY: docker-dev
