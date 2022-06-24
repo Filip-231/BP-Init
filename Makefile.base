@@ -3,6 +3,11 @@ SHELL := /bin/bash
 -include Makefile.common
 
 
+.PHONY: docs
+docs:: venv ## construct documentations
+	. "$(_VENV_ACTIVATE)" && \
+		sphinx-build -a -b html -E docs/source public
+
 .PHONY: format
 format:: venv ## format code
 	. "$(_VENV_ACTIVATE)" && \
