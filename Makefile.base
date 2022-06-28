@@ -16,8 +16,15 @@ format:: venv ## format code
 .PHONY: test
 test:: venv ## run tests
 	echo "Executing pytest"
-	@. "$(_VENV_ACTIVATE)" && python -m pytest -p no:allure_pytest -v $(_DIR_STRUCTURE)/tests/
+	@. "$(_VENV_ACTIVATE)" && python -m pytest -p no:allure_pytest --alluredir=public/allure-results --cov --cov-report=term-missing \
+			--cov-report=xml:public/coverage.xml \
+			--pdb $(_DIR_STRUCTURE)/tests/ && \
+				allure generate --clean --report-dir public/allure-report public/allure-results
 
+.PHONY: test-report
+test-report:: test ## show allure test report
+	echo "Opening allure report."; \
+	allure open "public/allure-report"
 
 .PHONY: install
 install:: pre-install freeze ## install all requirements
@@ -32,3 +39,9 @@ freeze: ## generate requirements from setup.cfg
 lint:: venv ## check all code styling
 	. "$(_VENV_ACTIVATE)" && \
 		prospector
+
+.PHONY: clean
+clean:: ## clean up cache and temp files
+	find . -type f -name "*.py[cdo]" -delete
+	find . -type d -name "__pycache__" -delete
+	rm -rf .coverage .mypy_cache .pytest_cache *.egg-info build dist public
