@@ -11,5 +11,5 @@ public/
 build/
 dist/
 public/
-public/.*
+public/.*/
 docs/generated/
