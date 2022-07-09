@@ -8,6 +8,17 @@ docs:: venv ## construct documentations
 	. "$(_VENV_ACTIVATE)" && \
 		sphinx-build -a -b html -E docs/source public
 
+.PHONY: changelog
+changelog: venv ## UNRELEASED= update the changelog incrementally. UNRELEASED is the name of the current, as yet unreleased, version)
+	@. $(_VENV_ACTIVATE) && \
+		cz changelog --incremental --unreleased-version=$(UNRELEASED)
+		#make changelog UNRELEASED=$(make get-version)
+
+.PHONY: get-version
+get-version: ## prints the current version
+	@. $(_VENV_ACTIVATE) && \
+		cz version --project
+
 .PHONY: format
 format:: venv ## format code
 	. "$(_VENV_ACTIVATE)" && \
