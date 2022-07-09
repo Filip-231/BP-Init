@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 
 -include Makefile.configure
--include Makefile.specific
+-include $(_DIR_STRUCTURE)/Makefile.specific
 
 BRANCH ?= master
 LANGUAGE ?= python
