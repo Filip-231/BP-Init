@@ -11,3 +11,4 @@ public/
 build/
 dist/
 public/
+public/.*
