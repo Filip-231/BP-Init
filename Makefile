@@ -32,7 +32,7 @@ test123:
 git: ## _PROJECT=project _USER=user reset git, specify new project and git user
 	@echo "Configuring git."
 	touch Makefile.specific
-	echo _PROJECT=$(_PROJECT) >> Makefile.specific && echo _USER=$(_USER) >> Makefile.specific
+	echo _PROJECT=$(_PROJECT) >> .env && echo _USER=$(_USER) >> .env
 	git remote rm origin
 	git remote add origin git@github.com:$(_USER)/$(_PROJECT).git
 	git push --set-upstream origin master
