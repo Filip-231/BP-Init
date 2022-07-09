@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
--include Makefile.base
+-include Makefile.configure
 -include Makefile.specific
 
 BRANCH ?= master
@@ -57,7 +57,6 @@ commit: venv ## make interactive conventional commit
 		cz commit
 
 
-
 .PHONY: help
 help: ## display this help message
 	$(info Please use $(_BOLD)make $(_DEFAULT)$(_ITALICS)$(_CYAN)target$(_DEFAULT) where \
@@ -65,3 +64,63 @@ help: ## display this help message
 	@grep --no-filename "^[a-zA-Z]" $(MAKEFILE_LIST) | \
 		sort | \
 		awk -F ":.*?## " 'NF==2 {printf "$(_CYAN)%-20s$(_DEFAULT)%s\n", $$1, $$2}'
+
+
+.PHONY: clean
+clean:: ## clean up temp and trash files
+	find . -type f -name "*.py[cdo]" -delete
+	find . -type d -name "__pycache__" -delete
+	rm -rf .coverage .mypy_cache .pytest_cache *.egg-info build dist public
+
+
+.PHONY: test
+test:: venv ## run tests
+	echo "Executing pytest"
+	@. "$(_VENV_ACTIVATE)" && python -m pytest -p no:allure_pytest_bdd --alluredir=public/allure-results --cov --cov-report=term-missing \
+			--cov-report=xml:public/coverage.xml \
+			--pdb $(_DIR_STRUCTURE)/tests/ && \
+				allure generate --clean --report-dir public/allure-report public/allure-results
+
+
+.PHONY: test-report
+test-report:: test ## show allure test report
+	echo "Opening allure report."; \
+	allure open "public/allure-report"
+
+
+.PHONY: docs
+docs:: venv ## construct documentations
+	. "$(_VENV_ACTIVATE)" && \
+		sphinx-build -a -b html -E docs/source public
+
+
+.PHONY: changelog
+changelog: venv ## UNRELEASED= update the changelog incrementally. UNRELEASED is the name of the current, as yet unreleased, version)
+	@. $(_VENV_ACTIVATE) && \
+		cz changelog --incremental --unreleased-version=$(UNRELEASED)
+		#make changelog UNRELEASED=$(make get-version)
+
+
+.PHONY: get-version
+get-version: ## prints the current version
+	@. $(_VENV_ACTIVATE) && \
+		cz version --project
+
+
+.PHONY: format
+format:: venv ## format code
+	. "$(_VENV_ACTIVATE)" && \
+		isort . && black .
+
+
+.PHONY: lint
+lint:: venv ## check all code styling
+	. "$(_VENV_ACTIVATE)" && \
+		prospector
+
+
+.PHONY: clean
+clean:: ## clean up cache and temp files
+	find . -type f -name "*.py[cdo]" -delete
+	find . -type d -name "__pycache__" -delete
+	rm -rf .coverage .mypy_cache .pytest_cache *.egg-info build dist public
