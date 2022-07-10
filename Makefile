@@ -75,12 +75,16 @@ clean:: ## clean up temp and trash files
 
 
 .PHONY: test
-test:: venv ## run tests
+test:: venv ## ALLURE=True run tests
 	echo "Executing pytest"
 	@. "$(_VENV_ACTIVATE)" && python -m pytest -p no:allure_pytest_bdd --alluredir=public/allure-results --cov --cov-report=term-missing \
 			--cov-report=xml:public/coverage.xml \
-			--pdb $(_DIR_STRUCTURE)/tests/ && \
-				allure generate --clean --report-dir public/allure-report public/allure-results
+			--pdb $(_DIR_STRUCTURE)/tests/
+	if [ "$(ALLURE)" ]; then \
+			allure generate --clean --report-dir public/allure-report public/allure-results; \
+	fi
+
+
 
 .PHONY: test-report
 test-report:: test ## show allure test report
