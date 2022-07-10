@@ -1,0 +1,10 @@
+.PHONY: banner
+banner: ## TITLE= (echo a coloured banner to stdout, designed to demarcate sections)
+	$(info )
+	$(info )
+	$(info $(shell printf "%*s\n" $(_COLS) "" | tr " " "%"))
+	$(info $(_BOLD)$(_BLUE) $(shell date +"%H:%M:%S") | $(TITLE)$(_DEFAULT))
+	$(info $(shell printf "%*s\n" $(_COLS) "" | tr " " "%"))
+	$(info )
+	$(info )
+	@true

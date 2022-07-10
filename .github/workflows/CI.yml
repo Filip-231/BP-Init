@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: [ "master" ]
 
+#env:
+#  _DIR_STRUCTURE: structure
+#  _PROJECT: abc-test
+#  _USER: Filip-231
+
+
 jobs:
   test:
 

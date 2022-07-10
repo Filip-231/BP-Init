@@ -1,10 +1,13 @@
-name: Bump Version
+name: Bump Release
 
 on:
   push:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+
+env:
+  _DIR_STRUCTURE: structure
 
 jobs:
   bump:
@@ -18,7 +21,4 @@ jobs:
         run: make install
 
       - name: Run check
-        run: make bump
-
-      - name: Bump Version
-        run: make all
+        run: gh release create v1.2.5 -F CHANGELOG.md

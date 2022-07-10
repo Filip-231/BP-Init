@@ -38,12 +38,12 @@ update-makefiles: ## update configuration files
 .PHONY: install
 install:: pre-install freeze ## install all requirements
 	echo "Installing requirements."; \
-		. "$(_VENV_ACTIVATE)" && pip install -r $(_DIR_STRUCTURE)/requirements.txt
+		. "$(_VENV_ACTIVATE)" && pip install -r requirements.txt
 
 
 .PHONY: freeze
 freeze: ## generate requirements from setup.cfg
-	. "$(_VENV_ACTIVATE)" &&  pip-compile $(_DIR_STRUCTURE)/setup.cfg
+	. "$(_VENV_ACTIVATE)" &&  pip-compile setup.cfg
 
 
 .PHONY: init
