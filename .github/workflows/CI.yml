@@ -19,9 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install prerequisites
-#        run: sudo make install-allure #no dollar sign
-        run: make brew-allure
+#      - name: Install prerequisites
+##        run: sudo make install-allure #no dollar sign
+#        run: make brew-allure
 
       - name: Install dependencies
         run: make install
