@@ -1,3 +1,6 @@
+_ALLURE_URL_PREFIX = https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
+ALLURE_VERSION=2.9.0
+
 .PHONY: banner
 banner: ## TITLE= (echo a coloured banner to stdout, designed to demarcate sections)
 	$(info )
@@ -8,3 +11,14 @@ banner: ## TITLE= (echo a coloured banner to stdout, designed to demarcate secti
 	$(info )
 	$(info )
 	@true
+
+
+.PHONY: install-allure
+install-allure: ## ALLURE_VERSION= (install allure)
+	curl "$(_ALLURE_URL_PREFIX)/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.tgz" | \
+    	tar --directory=/usr/local/ --extract --ungzip && echo 'export PATH="/usr/local/allure-2.9.0/bin/:$PATH"' >> ~/.bashrc && cat ~/.bashrc
+# nie da sie wpisac dolara do pliku
+
+ .PHONY: brew-allure
+brew-allure: ## ALLURE_VERSION= (install allure)
+	brew install allure

@@ -6,11 +6,10 @@ on:
   pull_request:
     branches: [ "master" ]
 
-#env:
-#  _DIR_STRUCTURE: structure
-#  _PROJECT: abc-test
-#  _USER: Filip-231
-
+env:
+  _DIR_STRUCTURE: structure
+  _PROJECT: abc-test
+  _USER: Filip-231
 
 jobs:
   test:
@@ -19,6 +18,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install prerequisites
+#        run: sudo make install-allure #no dollar sign
+        run: make brew-allure
 
       - name: Install dependencies
         run: make install
@@ -50,3 +53,19 @@ jobs:
 
       - name: Run check
         run: make format
+
+  bump_version:
+
+    runs-on: ubuntu-latest
+    needs: [test, lint, format]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Run check
+        run: make bump
+
+      - name: Bump Version
+        run: make all
