@@ -2,6 +2,7 @@ default: help
 SHELL := /bin/bash
 
 -include .env
+-include .github/workflows/Makefile.cicd
 export
 
 BOILERPLATE_REPO_PATH = git@github.com:Filip-231/Boilerplate.git
