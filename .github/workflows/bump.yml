@@ -14,8 +14,8 @@ jobs:
       - name: Install dependencies
         run: make install
 
-      - name: Run check
+      - name: Bump Version
         run: make bump
 
-      - name: Bump Version
+      - name: Commit Version
         run: make all

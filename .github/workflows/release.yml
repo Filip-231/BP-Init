@@ -5,6 +5,7 @@ on:
 
 env:
   _DIR_STRUCTURE: structure
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   bump:
