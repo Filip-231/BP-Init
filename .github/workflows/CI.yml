@@ -10,6 +10,7 @@ env:
   _DIR_STRUCTURE: structure
   _PROJECT: abc-test
   _USER: Filip-231
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 jobs:
   test:
@@ -55,7 +56,6 @@ jobs:
         run: make format
 
   bump_version:
-
     runs-on: ubuntu-latest
     needs: [test, lint, format]
     steps:
@@ -67,5 +67,23 @@ jobs:
       - name: Run check
         run: make bump
 
+      - name: Authorise
+        run: make authorise
+
       - name: Bump Version
         run: make all
+
+  publish_release:
+    runs-on: ubuntu-latest
+    needs: [bump_version]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Authorise
+        run: make authorise
+
+      - name: Publish release
+        run: make release

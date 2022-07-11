@@ -22,3 +22,15 @@ install-allure: ## ALLURE_VERSION= (install allure)
  .PHONY: brew-allure
 brew-allure: ## ALLURE_VERSION= (install allure)
 	brew install allure
+
+ .PHONY: authorise
+authorise:
+	git config --global user.name "Filip-231"
+	git config --global user.email "filip.szmid@gmail.com"
+	git pull
+
+ .PHONY: release
+release:
+	git tag `cat VERSION`
+	git push
+	gh release create `cat VERSION` -F CHANGELOG.md --target master
