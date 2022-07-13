@@ -47,7 +47,7 @@ bump: venv ## PART= bump the release version - deduced automatically from commit
 .PHONY: all
 all: ## commit and push all changes
 	git add .
-	git commit -m "auto-commit" --no-verify
+	git commit -m "feat: auto-commit" --no-verify
 	git push
 	git status
 
