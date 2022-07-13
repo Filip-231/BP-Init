@@ -31,6 +31,9 @@ authorise:
 
  .PHONY: release
 release:
-	git tag `cat VERSION`
-	git push
 	gh release create `cat VERSION` -F CHANGELOG.md --target master
+
+ .PHONY: tag
+tag:
+	git fetch --prune --unshallow --tags
+	git tag `cat VERSION`
