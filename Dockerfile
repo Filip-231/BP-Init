@@ -2,7 +2,7 @@ FROM python:3.9-alpine
 
 ENV PATH="/scripts:${PATH}"
 
-COPY ../templates/django/%7B%7Bcookiecutter.repo_name%7D%7D/requirements.txt /requirements.txt
+COPY ./requirements.txt /requirements.txt
 RUN apk add --update --no-cache --virtual .tmp gcc libc-dev linux-headers
 RUN pip install -r /requirements.txt
 RUN apk del .tmp
