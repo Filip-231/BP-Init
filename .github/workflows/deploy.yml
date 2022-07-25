@@ -1,0 +1,26 @@
+name: Deploy Staging
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Deploy Staging
+    environment:
+      name: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Staging
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            cd deploy/
+            sudo rm -rf abc-test/
+            git clone git@github.com:Filip-231/abc-test.git
+            cd abc-test/
+            sudo docker-compose down
+            yes | sudo docker system prune --volumes
+            sudo docker-compose build
+            sudo ALLOWED_HOSTS=${{ secrets.STAGING_HOST }} SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} docker-compose up -d
+          host: ${{ secrets.STAGING_HOST }}
+          user: ubuntu
+          key: ${{ secrets.STAGING_KEY}}
