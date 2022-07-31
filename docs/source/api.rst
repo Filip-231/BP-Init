@@ -6,4 +6,4 @@ API Reference
    :template: module.rst
    :toctree: generated
 
-   abc-test
+   django_api
