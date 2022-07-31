@@ -12,4 +12,4 @@ build/
 dist/
 public/
 public/.*/
-docs/generated/
+../templates/django/{{cookiecutter.project_name}}/docs/generated/
