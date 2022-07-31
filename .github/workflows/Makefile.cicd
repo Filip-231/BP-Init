@@ -44,4 +44,4 @@ build:
 
  .PHONY: up
 up:
-	sudo ALLOWED_HOSTS=${{ secrets.STAGING_HOST }} SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} docker-compose up -d
+	sudo docker-compose up -d

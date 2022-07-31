@@ -62,13 +62,11 @@ jobs:
       name: Testing
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy Staging
-        uses: fifsky/ssh-action@master
-        with:
-          command: |
-            make clean
-            make build
-            make up
-          host: ${{ secrets.STAGING_HOST }}
-          user: ubuntu
-          key: ${{ secrets.STAGING_KEY}}
+      - uses: actions/checkout@v3
+
+      - name: BUILD
+        run: make build
+
+      - name: UP
+        run: make up
+
