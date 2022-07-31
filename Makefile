@@ -79,7 +79,7 @@ test:: venv ## ALLURE=True run tests
 	echo "Executing pytest"
 	@. "$(_VENV_ACTIVATE)" && python -m pytest -p no:allure_pytest_bdd --alluredir=public/allure-results --cov --cov-report=term-missing \
 			--cov-report=xml:public/coverage.xml \
-			--pdb $tests/ #(_DIR_STRUCTURE)/
+			--pdb tests/ #$(_DIR_STRUCTURE)/
 	if [ "$(ALLURE)" ]; then \
 			allure generate --clean --report-dir public/allure-report public/allure-results; \
 	fi
