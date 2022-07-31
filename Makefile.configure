@@ -23,8 +23,8 @@ update: update-project update-makefiles ## update cruft project and configuratio
 
 
 .PHONY: update-project
-update-project: pre-install venv ## update cruft project and install pre-requirements
-	. $(_VENV_ACTIVATE) &&  cd  $(_DIR_STRUCTURE) && \
+update-project: pre-install venv ## update cruft project and install pre-requirements # $(_DIR_STRUCTURE)
+	. $(_VENV_ACTIVATE)  && \
 		cruft $(if $(CHECK),check --checkout=$(BRANCH),update --allow-untracked-files --checkout=$(BRANCH))
 
 
@@ -32,7 +32,7 @@ update-project: pre-install venv ## update cruft project and install pre-require
 update-makefiles: ## update configuration files
 	@echo "Updating setup files."
 	rm -rf .github/ docs/ proxy/ scripts/  && cd ../ && git clone git@github.com:Filip-231/Init.git tmp && \
-	cd tmp && rm VERSION && rm pyproject.toml && mv * .github .gitignore .pre-commit-config.yml \
+	cd tmp && mv * .github .gitignore \
 	../$(_PROJECT) && cd ../ && rm -rf tmp/
 
 
