@@ -1,7 +1,7 @@
 # Init
 This repository is made to initialize new projects with all design patterns included. All You need to do is:
 ```
-git clone git@github.com:Filip-231/Init.git abc-test && cd abc-test && make git _PROJECT=abc-test _USER=Filip-231 && make init && make git-commit-all
+git clone git@github.com:Filip-231/Init.git abc-test && cd abc-test && make git _PROJECT=abc-test _USER=Filip-231 && make init && make all
 ```
 Fill **_PROJECT** with a name of you new project, and **_USER** with the name of your Github user.
 
