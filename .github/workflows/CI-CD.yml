@@ -1,0 +1,95 @@
+name: CI-CD
+
+on:
+   workflow_dispatch:
+
+env:
+  _DIR_STRUCTURE: structure
+  _PROJECT: abc-test
+  _USER: Filip-231
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+#      - name: Install prerequisites
+##        run: sudo make install-allure #no dollar sign
+#        run: make brew-allure
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Run check
+        run: make test
+  lint:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: make install
+
+    - name: Run check
+      run: make lint
+
+  format:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Run check
+        run: make format
+
+  bump_version:
+    runs-on: ubuntu-latest
+    needs: [ test, lint, format ]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Run check
+        run: make bump
+
+      - name: Authorise
+        run: make authorise
+
+      - name: Commit
+        run: make all
+
+  publish_release:
+    runs-on: ubuntu-latest
+    needs: [ bump_version ]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Authorise
+        run: make authorise
+
+      - name: Tag
+        run: make tag
+
+      - name: Changelog
+        run: make changelog UNRELEASED=`cat VERSION`
+
+      - name: Push
+        run: make all
+
+      - name: Publish release
+        run: make release

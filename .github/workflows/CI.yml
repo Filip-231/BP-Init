@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  _DIR_STRUCTURE: structure
+  _PROJECT: abc-test
+  _USER: Filip-231
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+#      - name: Install prerequisites
+##        run: sudo make install-allure #no dollar sign
+#        run: make brew-allure
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Run check
+        run: make test
+  lint:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: make install
+
+    - name: Run check
+      run: make lint
+
+  format:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Run check
+        run: make format
