@@ -50,7 +50,7 @@ freeze: ## generate requirements from setup.cfg
 .PHONY: init
 init: pre-install venv ## create cruft project and install pre-requirements
 	$(info Initialising directory from template...)
-	. $(_VENV_ACTIVATE) && \
+	. $(_VENV_ACTIVATE) && cd .. && \
 		cruft create --directory=templates/django --overwrite-if-exists --checkout=$(BRANCH) \
 			--extra-context="{\"project_name\": \"$(_CURRENT_DIR_NAME)\"}" $(BOILERPLATE_REPO_PATH)
 
