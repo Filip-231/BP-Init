@@ -2,7 +2,7 @@ SHELL := /bin/bash
 
 -include .env
 -include Makefile.configure
--include $(_DIR_STRUCTURE)/Makefile.specific
+-include Makefile.specific #$(_DIR_STRUCTURE)/
 
 BRANCH ?= master
 LANGUAGE ?= python
@@ -72,6 +72,8 @@ clean:: ## clean up temp and trash files
 	find . -type f -name "*.py[cdo]" -delete
 	find . -type d -name "__pycache__" -delete
 	rm -rf .coverage .mypy_cache .pytest_cache *.egg-info build dist public
+	sudo docker-compose down --remove-orphans
+	yes | sudo docker system prune --volumes
 
 
 .PHONY: test

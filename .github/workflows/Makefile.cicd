@@ -37,3 +37,11 @@ release:
 tag:
 	git fetch --prune --unshallow --tags
 	git tag `cat VERSION`
+
+ .PHONY: build
+build:
+	sudo docker-compose build
+
+ .PHONY: up
+up:
+	sudo ALLOWED_HOSTS=${{ secrets.STAGING_HOST }} SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }} docker-compose up -d

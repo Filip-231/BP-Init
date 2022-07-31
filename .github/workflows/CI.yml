@@ -54,3 +54,21 @@ jobs:
 
       - name: Run check
         run: make format
+
+  build:
+    name: Docker
+    needs: [ test, lint, format ]
+    environment:
+      name: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Staging
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            make clean
+            make build
+            make up
+          host: ${{ secrets.STAGING_HOST }}
+          user: ubuntu
+          key: ${{ secrets.STAGING_KEY}}
