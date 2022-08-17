@@ -14,16 +14,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: install packages
         run: make install
 
-      - name: Run check
+      - name: bump version
         run: make bump
 
-      - name: Authorise
+      - name: authorise git
         run: make authorise
 
-      - name: Bump Version
+      - name: commit all changes
         run: make all
 
   publish_release:
@@ -32,20 +32,20 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: install packages
         run: make install
 
-      - name: Authorise
+      - name: authorise git
         run: make authorise
 
-      - name: Tag
+      - name: tag new version
         run: make tag
 
-      - name: Changelog
+      - name: update changelog
         run: make changelog UNRELEASED=`cat VERSION`
 
-      - name: Push
+      - name: commit all changes
         run: make all
 
-      - name: Publish release
+      - name: publish release
         run: make release
