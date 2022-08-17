@@ -30,15 +30,17 @@ test-paths:
 
 
 .PHONY: git
-git: ## _PROJECT=project _USER=user reset git, specify new project and git user
+git:  ## reset git, specify new project and git user
 	@echo "Configuring git."
 	@echo "Project: $(_PROJECT) User: $(_USER)"
 	touch Makefile.specific
-	echo _PROJECT=$(_PROJECT) >> .env && echo _USER=$(_USER) >> .env
 	git remote rm origin
 	git remote add origin git@github.com:$(_USER)/$(_PROJECT).git
 	git push --set-upstream origin master
 
+.PHONY: set-project-name
+set-project-name: ## _PROJECT=project _USER=user
+	echo _PROJECT=$(_PROJECT) >> .env && echo _USER=$(_USER) >> .env
 
 .PHONY: bump
 bump: venv ## PART= bump the release version - deduced automatically from commit messages since the last tag unless PART is explicitly provided
