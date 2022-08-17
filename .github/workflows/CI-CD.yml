@@ -77,7 +77,7 @@ jobs:
         run: make bump
 
       - name: authorise git
-        run: make authorise USER=${{ github.actor }} EMAIL="filip.szmid@gmail.com"
+        run: make authorise USER=${{ github.actor }} EMAIL="${{ github.actor }}@users.noreply.github.com"
 
       - name: commit all changes
         run: make all
@@ -92,7 +92,7 @@ jobs:
         run: make install
 
       - name: authorise git
-        run: make authorise USER=${{ github.actor }} EMAIL="filip.szmid@gmail.com"
+        run: make authorise USER=${{ github.actor }} EMAIL="${{ github.actor }}@users.noreply.github.com"
 
       - name: tag new version
         run: make tag
