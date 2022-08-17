@@ -27,26 +27,26 @@ brew-allure: ## (install allure with brew long)
 	brew install allure
 
  .PHONY: authorise
-authorise:
-	git config --global user.name "Filip-231"
-	git config --global user.email "filip.szmid@gmail.com"
+authorise: ##USER= EMAIL= authorise a github user
+	git config --global user.name $(USER)
+	git config --global user.email $(EMAIL)
 	git pull
 
  .PHONY: release
-release:
+release:  ## create a new github release
 	gh release create `cat VERSION` -F CHANGELOG.md --target master
 
  .PHONY: tag
-tag:
+tag: ## pull tags and tag a new version
 	git fetch --prune --unshallow --tags
 	git tag `cat VERSION`
 
  .PHONY: build
-build:
+build:  ## builds docker image
 	sudo docker-compose build
 
  .PHONY: up
-up:
+up: ## ALLOWED_HOSTS= SECRET_KEY= turn up the django rest api
 	sudo ALLOWED_HOSTS=$(ALLOWED_HOSTS) SECRET_KEY=$(SECRET_KEY) docker-compose up -d
 
  .PHONY: down-volumes

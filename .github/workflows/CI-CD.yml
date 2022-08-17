@@ -92,7 +92,7 @@ jobs:
         run: make install
 
       - name: authorise git
-        run: make authorise
+        run: make authorise USER=${{ github.actor }} EMAIL="filip.szmid@gmail.com"
 
       - name: tag new version
         run: make tag
