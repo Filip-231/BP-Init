@@ -1,5 +1,8 @@
+# PARAMETERS
 _ALLURE_URL_PREFIX = https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline
 ALLURE_VERSION=2.9.0
+
+
 
 .PHONY: banner
 banner: ## TITLE= (echo a coloured banner to stdout, designed to demarcate sections)
@@ -20,7 +23,7 @@ install-allure: ## ALLURE_VERSION= (install allure)
 # nie da sie wpisac dolara do pliku
 
  .PHONY: brew-allure
-brew-allure: ## ALLURE_VERSION= (install allure)
+brew-allure: ## (install allure with brew long)
 	brew install allure
 
  .PHONY: authorise
@@ -44,4 +47,9 @@ build:
 
  .PHONY: up
 up:
-	sudo docker-compose up -d
+	sudo ALLOWED_HOSTS=$(ALLOWED_HOSTS) SECRET_KEY=$(SECRET_KEY) docker-compose up -d
+
+ .PHONY: down-volumes
+down-volumes: ## remove docker images and volumes
+	sudo docker-compose down --remove-orphans
+	yes | sudo docker system prune --volumes

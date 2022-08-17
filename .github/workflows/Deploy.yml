@@ -1,0 +1,38 @@
+name: Deploy
+on:
+  workflow_dispatch:
+
+# To run this workflow You neet to install on machine:
+#       sudo apt install make
+# and provide in environment secrets: TESTING_HOST_IP = host ip
+# DJANGO_SECRET_KEY = zzbnf2rffby2zkcxjaw9kdjau6046bqyh9nmygjuckslllzeta
+# random django key without special signs
+# TESTING_SSH_PRIVATE_KEY = ssh private key generated from cloud UI
+# You can access context: ${{ <context> }} https://docs.github.com/en/actions/learn-github-actions/contexts#example-printing-context-information-to-the-log-file
+
+jobs:
+  build:
+    name: Deploy Testing
+    environment:
+      name: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: fifsky/ssh-action@master
+        with:
+          command: |
+            sudo rm -rf ${{ github.event.repository.name }}/
+            git clone git@github.com:${{ github.actor }}/${{ github.event.repository.name }}.git
+            cd ${{ github.event.repository.name }}/
+            make down-volumes
+            make build
+            make up ALLOWED_HOSTS=${{ secrets.TESTING_HOST_IP }} SECRET_KEY=${{ secrets.DJANGO_SECRET_KEY }}
+          host: ${{ secrets.TESTING_HOST_IP }}
+          user: ubuntu
+          key: ${{ secrets.TESTING_SSH_PRIVATE_KEY }}
+
+# It is possible to add new environment with
+#  environment:
+#    name: Production
+#  and control it in github Environments tab
+# but the repo need to be public
