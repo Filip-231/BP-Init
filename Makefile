@@ -22,11 +22,12 @@ _MAGENTA := $(shell tput -T ansi setaf 5)
 _RED := $(shell tput -T ansi setaf 1)
 _YELLOW := $(shell tput -T ansi setaf 3)
 
-.PHONY: test123
-test123:
-	@echo "test12345"
-	@echo git@github.com:Filip-231/$(_PROJECT).git
-#	@echo $(shell basename $${PWD})
+.PHONY: test-paths
+test-paths:
+	@echo "Is this right?"
+	@echo git@github.com:$(_USER)/$(_PROJECT).git
+	@echo "Current working dir: "$(_CURRENT_DIR_NAME)
+
 
 .PHONY: git
 git: ## _PROJECT=project _USER=user reset git, specify new project and git user
