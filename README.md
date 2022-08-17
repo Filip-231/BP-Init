@@ -4,7 +4,7 @@ This repository is made to initialize new projects with all design patterns incl
 git clone git@github.com:Filip-231/BP-Init.git abc-test && \
 cd abc-test && make git _PROJECT=abc-test _USER=Filip-231 &&\ 
 make init LANGUAGE=django && make set-project-name _PROJECT=abc-test _USER=Filip-231 \
-&& make all
+&& make all && make install
 ```
 Fill **_PROJECT** with a name of you new project, and **_USER** with the name of your Github user.
 
