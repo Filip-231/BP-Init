@@ -32,6 +32,7 @@ test-paths:
 .PHONY: git
 git: ## _PROJECT=project _USER=user reset git, specify new project and git user
 	@echo "Configuring git."
+	@echo "Project: $(_PROJECT) User: $(_USER)"
 	touch Makefile.specific
 	echo _PROJECT=$(_PROJECT) >> .env && echo _USER=$(_USER) >> .env
 	git remote rm origin
