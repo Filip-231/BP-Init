@@ -37,7 +37,7 @@ update-makefiles: ## update configuration files
 
 
 .PHONY: install
-install:: pre-install freeze ## install all requirements
+install:: pre-install ## install all requirements
 	echo "Installing requirements."; \
 		. "$(_VENV_ACTIVATE)" && pip install -r requirements.txt
 
