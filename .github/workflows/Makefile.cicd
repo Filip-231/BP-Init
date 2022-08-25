@@ -30,8 +30,6 @@ brew-allure: ## (install allure with brew long)
 authorise: ##USER= EMAIL= authorise a github user
 	git config --global user.name $(USER)
 	git config --global user.email $(EMAIL)
-	git status
-	#git stash push .
 	git pull
 	git status
 

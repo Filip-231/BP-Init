@@ -43,8 +43,8 @@ install:: pre-install ## install all requirements
 
 
 .PHONY: freeze
-freeze: ## generate requirements from setup.cfg
-	. "$(_VENV_ACTIVATE)" &&  pip-compile setup.cfg
+freeze: ## UPGRADE= generate requirements from setup.cfg
+	. "$(_VENV_ACTIVATE)" &&  pip-compile $(if $(UPGRADE),--upgrade )setup.cfg
 
 
 .PHONY: init
