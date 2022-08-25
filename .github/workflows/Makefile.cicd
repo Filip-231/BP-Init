@@ -42,13 +42,6 @@ tag: ## pull tags and tag a new version
 	git fetch --prune --unshallow --tags
 	git tag `cat VERSION`
 
- .PHONY: build
-build:  ## builds docker image
-	sudo docker-compose build
-
- .PHONY: up
-up: ## ALLOWED_HOSTS= SECRET_KEY= turn up the django rest api
-	sudo ALLOWED_HOSTS=$(ALLOWED_HOSTS) SECRET_KEY=$(SECRET_KEY) docker-compose up -d
 
  .PHONY: down-volumes
 down-volumes: ## remove docker images and volumes

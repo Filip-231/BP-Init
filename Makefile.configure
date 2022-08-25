@@ -18,6 +18,13 @@ docker-dev: ## launch a dev environment inside of a docker container
 	export DOCKER_BUILDKIT=1
 
 
+.PHONY: test222
+test222:
+	@echo "222"
+	@echo git@github.com:$(_USER)/$(_PROJECT).git
+#	@echo $(shell basename $${PWD})
+
+
 .PHONY: update
 update: update-project update-makefiles ## update cruft project and configuration files
 
