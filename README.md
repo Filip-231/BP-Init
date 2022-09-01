@@ -1,5 +1,5 @@
 # Init 
-This repository is made to initialize new projects with all design patterns included. All You need to do is:
+This repository is made to initialize new projects with complete CI/CD process included. All You need to do is:
 ```## :TODO make this readme generic per language - I don't want same readme for all languages
 git clone git@github.com:Filip-231/BP-Init.git abc-test && \
 cd abc-test && make git _PROJECT=abc-test _USER=Filip-231 &&\ 
