@@ -5,11 +5,11 @@ SHELL := /bin/bash
 -include Makefile.specific
 
 BRANCH ?= master
-LANGUAGE ?= python
 DOMAIN ?= github.com
+CODECOV_TOKEN ?=
 PART ?= #PATCH #MINOR MAJOR
-_PROJECT ?=
-_USER ?= #will be prepopulated in Makefile.specific
+GH_PACKAGE=$(shell tr '[:upper:]' '[:lower:]' <<< "ghcr.io/$(_USER)/$(_PROJECT):")
+SERVICE_NAME=$(shell tr '[:upper:]' '[:lower:]' <<< "$(_PROJECT)-dev")
 
 _BOLD := $(shell tput -T ansi bold)
 _COLS := $(shell tput -T ansi cols)
@@ -22,11 +22,14 @@ _MAGENTA := $(shell tput -T ansi setaf 5)
 _RED := $(shell tput -T ansi setaf 1)
 _YELLOW := $(shell tput -T ansi setaf 3)
 
-.PHONY: test-paths
-test-paths:
-	@echo "Is this right?"
-	@echo git@github.com:$(_USER)/$(_PROJECT).git
+
+.PHONY: test-vars
+test-vars:
+	@echo "Repository:" git@github.com:$(_USER)/$(_PROJECT).git
 	@echo "Current working dir: "$(_CURRENT_DIR_NAME)
+	@echo "Language:" $(LANGUAGE)
+	@echo "Service name:" $(SERVICE_NAME)
+	@echo "GH package:" $(GH_PACKAGE)
 
 
 .PHONY: git
@@ -38,12 +41,14 @@ git:  ## reset git, specify new project and git user
 	git remote add origin git@github.com:$(_USER)/$(_PROJECT).git
 	git push --set-upstream origin master
 
+
 .PHONY: set-project-name
-set-project-name: ## _PROJECT=project _USER=user
+set-project-name: ## (_PROJECT=project _USER=user ) set initial environment
 	echo _PROJECT=$(_PROJECT) >> .env && echo _USER=$(_USER) >> .env
 
+
 .PHONY: bump
-bump: venv ## PART= bump the release version - deduced automatically from commit messages since the last tag unless PART is explicitly provided
+bump: venv ## (PART= ) bump the release version - deduced automatically from commit messages unless PART is provided
 	. $(_VENV_ACTIVATE) && \
 		cz bump --files-only --yes $(if $(PART),--increment=$(PART))
 
@@ -71,66 +76,19 @@ help: ## display this help message
 		awk -F ":.*?## " 'NF==2 {printf "$(_CYAN)%-20s$(_DEFAULT)%s\n", $$1, $$2}'
 
 
-.PHONY: clean
-clean:: ## clean up temp and trash files
-	find . -type f -name "*.py[cdo]" -delete
-	find . -type d -name "__pycache__" -delete
-	rm -rf .coverage .mypy_cache .pytest_cache *.egg-info build dist public
-	sudo docker-compose down --remove-orphans
-	yes | sudo docker system prune --volumes
-
-
-.PHONY: test
-test:: venv ## ALLURE=True run tests
-	echo "Executing pytest"
-	@. "$(_VENV_ACTIVATE)" && python -m pytest -p no:allure_pytest_bdd --alluredir=public/allure-results --cov --cov-report=term-missing \
-			--cov-report=xml:public/coverage.xml \
-			--pdb tests/
-	if [ "$(ALLURE)" ]; then \
-			allure generate --clean --report-dir public/allure-report public/allure-results; \
-	fi
-
-
-
-.PHONY: test-report
-test-report:: test ## show allure test report
-	echo "Opening allure report."; \
-	allure open "public/allure-report"
-
-
-.PHONY: docs
-docs:: venv ## construct documentations
-	. "$(_VENV_ACTIVATE)" && \
-		sphinx-build -a -b html -E docs/source public
-
-
 .PHONY: changelog
-changelog: venv ## UNRELEASED= update the changelog incrementally. UNRELEASED is the name of the current, as yet unreleased, version)
+changelog: venv ## (UNRELEASED= current version) update the changelog incrementally.
 	@. $(_VENV_ACTIVATE) && \
 		cz changelog --incremental --unreleased-version=$(UNRELEASED)
 		#make changelog UNRELEASED=$(make get-version)
 
 
 .PHONY: get-version
-get-version: ## prints the current version
+get-version: ## output the current version
 	@. $(_VENV_ACTIVATE) && \
 		cz version --project
 
 
-.PHONY: format
-format:: venv ## format code
-	. "$(_VENV_ACTIVATE)" && \
-		isort . && black .
-
-
-.PHONY: lint
-lint:: venv ## check all code styling
-	. "$(_VENV_ACTIVATE)" && \
-		prospector
-
-
-.PHONY: clean
-clean:: ## clean up cache and temp files
-	find . -type f -name "*.py[cdo]" -delete
-	find . -type d -name "__pycache__" -delete
-	rm -rf .coverage .mypy_cache .pytest_cache *.egg-info build dist public
+.PHONY: docker-download-package
+docker-download-package: ##  (VERSION= specifies version) download package from GH package registry
+	docker pull $(if $(VERSION), "$(GH_PACKAGE)$(VERSION)", "$(GH_PACKAGE)latest" )

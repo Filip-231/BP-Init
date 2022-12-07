@@ -7,33 +7,26 @@ export
 
 BOILERPLATE_REPO_PATH = git@github.com:Filip-231/Boilerplate.git
 BOILERPLATE_REPO_SSH = git@$(DOMAIN):$(BOILERPLATE_REPO_PATH)
-
+PYTHON ?= python3.9
 _VENV=.venv
 _VENV_ACTIVATE = $(_VENV)/bin/activate
-#_CURRENT_DIR_NAME = $(shell basename $${PWD})
 _CURRENT_DIR_NAME=$(shell cd -P -- '$(shell dirname -- "$0")' && pwd -P)
 
-.PHONY: docker-dev
-docker-dev: ## launch a dev environment inside of a docker container
-	export DOCKER_BUILDKIT=1
 
-
-.PHONY: test222
-test222:
-	@echo "222"
-	@echo git@github.com:$(_USER)/$(_PROJECT).git
-#	@echo $(shell basename $${PWD})
-
+.PHONY: check-commit
+check-commit: venv ## check the commit message is valid
+	. $(_VENV_ACTIVATE) && \
+		cz check --commit-msg-file=./.git/COMMIT_EDITMSG
 
 .PHONY: update
 update: update-project update-makefiles ## update cruft project and configuration files
 
 
 .PHONY: update-project
-update-project: pre-install venv ## update cruft project and install pre-requirements # $(_DIR_STRUCTURE)
+update-project: pre-install venv ## update cruft project and install pre-requirements
 	. $(_VENV_ACTIVATE)  && \
 		cruft $(if $(CHECK),check --checkout=$(BRANCH),update --allow-untracked-files --checkout=$(BRANCH))
-
+# $(_DIR_STRUCTURE)
 
 .PHONY: update-makefiles
 update-makefiles: ## update configuration files
@@ -43,19 +36,8 @@ update-makefiles: ## update configuration files
 	../$(_PROJECT) && cd ../ && rm -rf tmp/
 
 
-.PHONY: install
-install:: pre-install ## install all requirements
-	echo "Installing requirements."; \
-		. "$(_VENV_ACTIVATE)" && pip install -r requirements.txt
-
-
-.PHONY: freeze
-freeze: ## UPGRADE= generate requirements from setup.cfg
-	. "$(_VENV_ACTIVATE)" &&  pip-compile $(if $(UPGRADE),--upgrade )setup.cfg
-
-
 .PHONY: init
-init: pre-install venv ## LANGUAGE=django/tool create cruft project and install pre-requirements
+init: pre-install venv ## (LANGUAGE=django/tool/dbt) create cruft project and install pre-requirements
 	$(info Initialising directory from template...)
 	. $(_VENV_ACTIVATE) && cd .. && \
 		cruft create --directory=templates/$(LANGUAGE) --overwrite-if-exists --checkout=$(BRANCH) \
@@ -75,6 +57,7 @@ pre-install: venv ## install pre-requirements
 				pre-commit install --allow-missing-config --config=.pre-commit-config.yml --hook-type=pre-commit \
 					--hook-type=commit-msg; \
 			fi
+
 
 .PHONY: venv
 venv: $(_VENV_ACTIVATE) ## install virtual environment
