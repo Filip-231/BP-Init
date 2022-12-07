@@ -13,3 +13,7 @@ dist/
 public/.*/
 django_api/static/
 docs/source/generated/
+credentials.json
+logs/
+target/
+dbt_packages/
