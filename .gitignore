@@ -13,4 +13,4 @@ dist/
 public/.*/
 ../templates/django/django_api/docs/generated/
 django_api/static/
-docs/source/generated/
+../templates/django/{{cookiecutter.project_name}}/docs/source/generated/
