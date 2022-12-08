@@ -8,6 +8,7 @@ BRANCH ?= master
 DOMAIN ?= github.com
 CODECOV_TOKEN ?=
 PART ?= #PATCH #MINOR MAJOR
+EXTRAS ?= dev
 GH_PACKAGE=$(shell tr '[:upper:]' '[:lower:]' <<< "ghcr.io/$(_USER)/$(_PROJECT):")
 SERVICE_NAME=$(shell tr '[:upper:]' '[:lower:]' <<< "$(_PROJECT)-dev")
 
