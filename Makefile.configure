@@ -37,7 +37,7 @@ update-makefiles: ## update configuration files
 
 
 .PHONY: init
-init: pre-install venv ## (LANGUAGE=django/tool/dbt) create cruft project and install pre-requirements
+init: pre-install venv ## (LANGUAGE=django/package/dbt) create cruft project and install pre-requirements
 	$(info Initialising directory from template...)
 	. $(_VENV_ACTIVATE) && cd .. && \
 		cruft create --directory=templates/$(LANGUAGE) --overwrite-if-exists --checkout=$(BRANCH) \
