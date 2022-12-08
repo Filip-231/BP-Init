@@ -91,5 +91,5 @@ get-version: ## output the current version
 
 
 .PHONY: docker-download-package
-docker-download-package: ##  (VERSION= specifies version) download package from GH package registry
+docker-download-package: ##  (VERSION= ) download package from GH package registry
 	docker pull $(if $(VERSION), "$(GH_PACKAGE)$(VERSION)", "$(GH_PACKAGE)latest" )
